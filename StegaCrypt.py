@@ -46,7 +46,8 @@ st.sidebar.markdown("""
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
 📧 [Email](mailto:manas.pr94@gmail.com)
-""")  # FIXED: Triple quotes properly closed
+🐙 [GitHub](https://github.com/manas-pr)  
+""")
 
 
 # Encryption Section
