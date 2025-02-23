@@ -10,7 +10,7 @@ from decrypt import decrypt_image  # Import decrypt function
 page_bg_img = """
 <style>
 .stApp {
-    background-image: url("https://img.freepik.com/free-vector/abstract-technology-betwork-wire-mesh-background_1017-17263.jpg?t=st=1740339553~exp=1740343153~hmac=eba03bb1e5ffaed561a177f35cf8dc2edea517244a9dc074a817088b62441cf2&w=1380");
+    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740339735~exp=1740343335~hmac=9cc6cf6a2b6f19cde9482a63d682c36fd20818686ef7789a5fe7124e0dcd4753&w=1380");
     background-size: cover;
     background-attachment: fixed;
 }
