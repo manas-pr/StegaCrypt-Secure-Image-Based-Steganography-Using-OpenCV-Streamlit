@@ -31,14 +31,14 @@ st.sidebar.markdown("""
 **Manas Pratim Das**  
 🎓 *Electronics and Communication Engineering (MTech/MS)*  
 🤖 *Focus Areas:*  
-<span style='font-size: 12px;'>✅ AI & Machine Learning</span>  
-<span style='font-size: 12px;'>✅ Deep Learning & Secure Computing</span>  
-<span style='font-size: 12px;'>✅ Neuromorphic Computing</span>  
+       ✅ AI & Machine Learning  
+       ✅ Deep Learning & Secure Computing  
+       ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
 📧 [Email](mailto:manas.pr94@gmail.com)
-""")  
+""")  # FIXED: Triple quotes properly closed
 
 
 # Encryption Section
