@@ -3,6 +3,10 @@ import numpy as np
 import streamlit as st
 import os
 
+# Define character-to-value mapping
+d = {chr(i): i for i in range(255)}
+c = {i: chr(i) for i in range(255)}
+
 def decrypt_image(image):
     decrypted_msg = ""
     m, n, z = 0, 0, 0
