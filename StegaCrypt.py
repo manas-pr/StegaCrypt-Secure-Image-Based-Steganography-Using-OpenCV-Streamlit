@@ -46,19 +46,19 @@ elif option == "Decrypt Message":
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
 
-elif option == "About":
-    st.subheader("👨‍💻 About the Developer")
-    st.write("""
-        **Manas Pratim Das**  
-        🎓 *Electronics and Communication Engineering (MTech) student*  
-        🤖 *Focus Areas: Artificial Intelligence & Cyber Security*  
-        
-        🌟 **Expertise:**  
-        - ✅ AI & Machine Learning  
-        - ✅ Deep Learning & Secure Computing  
-        - ✅ Neuromorphic Computing  
-
-        📌 **Connect with Me:**  
-        🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-        📧 **Email:** manas.pr94@gmail.com  
-    """)
+    elif option == "About":
+        st.subheader("👨‍💻 About the Developer")
+        st.write("""
+            **Manas Pratim Das**  
+            🎓 *Electronics and Communication Engineering (MTech) student*  
+            🤖 *Focus Areas: Artificial Intelligence & Cyber Security*  
+            
+            🌟 **Expertise:**  
+            - ✅ AI & Machine Learning  
+            - ✅ Deep Learning & Secure Computing  
+            - ✅ Neuromorphic Computing  
+    
+            📌 **Connect with Me:**  
+            🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
+            📧 **Email:** manas.pr94@gmail.com  
+        """)
