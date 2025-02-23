@@ -18,7 +18,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
 # Streamlit UI
-st.title("🔒 StegaCrypt- Image Steganography App")
+st.title("🔒 StegaCrypt - Image Steganography App")
 
 # Sidebar options
 st.sidebar.header("📌 Navigation")
@@ -29,12 +29,17 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("👨‍💻 About the Developer")
 st.sidebar.markdown("""
 **Manas Pratim Das**  
-🎓 *MTech - Electronics and Communication Engineering*  
-🤖 *Focus: Artificial Intelligence & Cyber Security*  
+🎓 *Electronics and Communication Engineering (MTech/MS)*  
+🤖 *Focus:*  
+   ✅ AI & Machine Learning  
+   ✅ Deep Learning & Secure Computing  
+   ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-📧 [Email] (manas.pr94@gmail.com)
+📧 [Email](mailto:manas.pr94@gmail.com)
+""")  
+
 
 # Encryption Section
 if option == "Encrypt Message":
@@ -48,7 +53,7 @@ if option == "Encrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            encrypted_img = encrypt_image(img, message)
+            encrypted_img = encrypt_image(img, message)  # Ensure encrypt_image() is defined
             cv2.imwrite("encryptedImage.png", encrypted_img)
             st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
             st.success("✅ Message Encrypted! Download the encrypted image below.")
@@ -70,7 +75,7 @@ elif option == "Decrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            decrypted_msg = decrypt_image(img)  # No need for message length input
+            decrypted_msg = decrypt_image(img)  # Ensure decrypt_image() is defined
             st.success(f"✅ Decrypted Message: {decrypted_msg}")
 
         else:
