@@ -6,8 +6,27 @@ from encrypt import encrypt_image  # Import encrypt function
 from decrypt import decrypt_image  # Import decrypt function
 
 
+import cv2
+import numpy as np
+import streamlit as st
+import os
+
+
+# Set background image using CSS
+page_bg_img = """
+<style>
+.stApp {
+    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740335237~exp=1740338837~hmac=a27f074d10a82ab100c989421ad79ec1d088b29b6f0d5a7f5f5412ff5bb4c967&w=996");
+    background-size: cover;
+    background-attachment: fixed;
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
 # Streamlit UI
-st.title("🔒 Image Steganography App")
+st.title("🔒 StegaCrypt - Image Steganography App")
 
 # Sidebar options
 st.sidebar.header("📌 Navigation")
@@ -18,13 +37,17 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("👨‍💻 About the Developer")
 st.sidebar.markdown("""
 **Manas Pratim Das**  
-🎓 *MTech - Electronics and Communication Engineering*  
-🤖 *Focus: Artificial Intelligence & Cyber Security*  
+🎓 *Electronics and Communication Engineering (MTech/MS)*  
+🤖 *Focus:*  
+       ✅ Artificial Intelligence & Machine Learning  
+       ✅ Deep Learning & Secure Computing  
+       ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-📧 **Email:** manas.pr94@gmail.com  
-""")
+📧 [Email](mailto:manas.pr94@gmail.com)
+""")  # FIXED: Triple quotes properly closed
+
 
 # Encryption Section
 if option == "Encrypt Message":
@@ -38,7 +61,7 @@ if option == "Encrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            encrypted_img = encrypt_image(img, message)
+            encrypted_img = encrypt_image(img, message)  # Ensure encrypt_image() is defined
             cv2.imwrite("encryptedImage.png", encrypted_img)
             st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
             st.success("✅ Message Encrypted! Download the encrypted image below.")
@@ -60,9 +83,8 @@ elif option == "Decrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            decrypted_msg = decrypt_image(img)  # No need for message length input
+            decrypted_msg = decrypt_image(img)  # Ensure decrypt_image() is defined
             st.success(f"✅ Decrypted Message: {decrypted_msg}")
 
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
-
