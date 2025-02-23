@@ -1,19 +1,29 @@
 import cv2
 import numpy as np
-import streamlit as st
-import os
+import base64
+from cryptography.fernet import Fernet
 
-# Define character-to-value mapping
+# Generate a key from password
+def generate_key(password):
+    return base64.urlsafe_b64encode(password.ljust(32).encode()[:32])
+
+# Encrypt message with AES
+def encrypt_message(message, password):
+    key = generate_key(password)
+    cipher = Fernet(key)
+    return cipher.encrypt(message.encode()).decode()  # Return encrypted text
+
+# Define character-to-value mapping for image encoding
 d = {chr(i): i for i in range(255)}
-c = {i: chr(i) for i in range(255)}
 
-def encrypt_image(image, message):
+def encrypt_image(image, message, password):
+    encrypted_msg = encrypt_message(message, password)  # Encrypt message
+    encrypted_msg += "\0"  # Add termination character
     img = image.copy()
-    message += "\0"  # Add termination character
     m, n, z = 0, 0, 0
 
-    for char in message:
-        img[n, m, z] = d[char]
+    for char in encrypted_msg:
+        img[n, m, z] = d.get(char, 0)  # Store encrypted message
         n = (n + 1) % img.shape[0]
         m = (m + 1) % img.shape[1]
         z = (z + 1) % 3
