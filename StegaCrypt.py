@@ -4,10 +4,26 @@ import streamlit as st
 import os
 
 # Streamlit UI
-st.title("🔒 Image Steganography App")
-st.sidebar.header("Choose an option:")
-option = st.sidebar.radio("", ("Encrypt Message", "Decrypt Message"))
+st.title("🔒 StegaCrypt- Image Steganography App")
 
+# Sidebar options
+st.sidebar.header("📌 Navigation")
+option = st.sidebar.radio("Choose an option:", ("Encrypt Message", "Decrypt Message"))
+
+# About section in the sidebar
+st.sidebar.markdown("---")
+st.sidebar.subheader("👨‍💻 About the Developer")
+st.sidebar.markdown("""
+**Manas Pratim Das**  
+🎓 *MTech - Electronics and Communication Engineering*  
+🤖 *Focus: Artificial Intelligence & Cyber Security*  
+
+📌 **Connect with Me:**  
+🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
+📧 **Email:** manas.pr94@gmail.com  
+""")
+
+# Encryption Section
 if option == "Encrypt Message":
     st.subheader("Encrypt a Message into an Image")
     uploaded_file = st.file_uploader("📤 Upload an Image", type=["jpg", "png"])
@@ -30,6 +46,7 @@ if option == "Encrypt Message":
         else:
             st.error("⚠ Please upload an image and enter a message.")
 
+# Decryption Section
 elif option == "Decrypt Message":
     st.subheader("Decrypt a Message from an Image")
     uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])
@@ -45,20 +62,3 @@ elif option == "Decrypt Message":
 
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
-
-    elif option == "About":
-        st.subheader("👨‍💻 About the Developer")
-        st.write("""
-            **Manas Pratim Das**  
-            🎓 *Electronics and Communication Engineering (MTech) student*  
-            🤖 *Focus Areas: Artificial Intelligence & Cyber Security*  
-            
-            🌟 **Expertise:**  
-            - ✅ AI & Machine Learning  
-            - ✅ Deep Learning & Secure Computing  
-            - ✅ Neuromorphic Computing  
-    
-            📌 **Connect with Me:**  
-            🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-            📧 **Email:** manas.pr94@gmail.com  
-        """)
