@@ -9,11 +9,18 @@ def pad_message(message):
     return message + (16 - len(message) % 16) * chr(16 - len(message) % 16)
 
 # AES encryption function
+import base64
+from Crypto.Cipher import AES
+import hashlib
+
 def encrypt_message(message, password):
-    key = sha256(password.encode()).digest()  # Generate AES key from password
-    cipher = AES.new(key, AES.MODE_ECB)  # Using ECB mode
-    encrypted_bytes = cipher.encrypt(pad_message(message).encode())  # Encrypt
-    return base64.b64encode(encrypted_bytes).decode()  # Encode in base64
+    key = hashlib.sha256(password.encode()).digest()  # Derive key
+    cipher = AES.new(key, AES.MODE_EAX)  # AES encryption in EAX mode
+    ciphertext, tag = cipher.encrypt_and_digest(message.encode())
+
+    encrypted_data = cipher.nonce + tag + ciphertext  # Combine all parts
+    return base64.b64encode(encrypted_data).decode()  # Convert to Base64 string
+
 
 # Function to embed message into an image
 def encrypt_image(image, message, password):
