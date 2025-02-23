@@ -2,3 +2,5 @@ opencv-python-headless
 numpy
 streamlit
 pycryptodome
+opencv-python
+cryptography
