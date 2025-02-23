@@ -1,35 +1,35 @@
 import cv2
 import numpy as np
-import cv2
-import numpy as np
 import streamlit as st
 import os
-# Define dictionary mapping pixel values to ASCII characters
-c = {i: chr(i) for i in range(256)}  
+
+# Define character-to-value mapping
+d = {chr(i): i for i in range(255)}
+c = {i: chr(i) for i in range(255)}
+
+def encrypt_image(image, message):
+    img = image.copy()
+    m, n, z = 0, 0, 0
+
+    for char in message:
+        img[n, m, z] = d[char]
+        n = (n + 1) % img.shape[0]
+        m = (m + 1) % img.shape[1]
+        z = (z + 1) % 3
+
+    return img
 
 def decrypt_image(image):
     decrypted_msg = ""
     m, n, z = 0, 0, 0
-    height, width, _ = image.shape  # Get image dimensions
 
     while True:
-        pixel_value = image[n, m, z]
-        char = c.get(pixel_value, "")
-
-        if char == "\0":  # Stop if termination character found
+        char = c.get(image[n, m, z], "")
+        if char == "":  # Stop when an invalid character is encountered
             break
-        
         decrypted_msg += char
-
-        # Move to next pixel in a structured way
-        z += 1
-        if z == 3:
-            z = 0
-            m += 1
-            if m == width:
-                m = 0
-                n += 1
-                if n == height:  # Stop at end of image
-                    break
+        n = (n + 1) % image.shape[0]
+        m = (m + 1) % image.shape[1]
+        z = (z + 1) % 3
 
     return decrypted_msg
