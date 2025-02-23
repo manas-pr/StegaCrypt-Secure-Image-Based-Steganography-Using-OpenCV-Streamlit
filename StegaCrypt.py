@@ -39,9 +39,9 @@ st.sidebar.markdown("""
        ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
-🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-📧 [Email](mailto:manas.pr94@gmail.com)  
-🐙 [GitHub](https://github.com/manas-pr)  
+🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)
+🐙 [GitHub](https://github.com/manas-pr)   
+📧 [Email](mailto:manas.pr94@gmail.com)   
 """) 
 
 
