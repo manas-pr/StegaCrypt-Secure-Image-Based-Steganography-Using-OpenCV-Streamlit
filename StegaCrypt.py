@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
+from encrypt import encrypt_image  # Import encrypt function
+from decrypt import decrypt_image  # Import decrypt function
 
 # Streamlit UI
 st.title("🔒 Image Steganography App")
@@ -19,7 +21,7 @@ if option == "Encrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            encrypted_img = encrypt_image(img, message)
+            encrypted_img = encrypt_image(img, message, password)  # Now using function from encrypt.py
             cv2.imwrite("encryptedImage.png", encrypted_img)
             st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
             st.success("✅ Message Encrypted! Download the encrypted image below.")
@@ -40,7 +42,7 @@ elif option == "Decrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            decrypted_msg = decrypt_image(img)  # No need for message length input
+            decrypted_msg = decrypt_image(img, password)  # Now using function from decrypt.py
             st.success(f"✅ Decrypted Message: {decrypted_msg}")
 
         else:
