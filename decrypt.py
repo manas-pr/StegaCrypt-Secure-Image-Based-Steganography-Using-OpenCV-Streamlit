@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
-import streamlit as st
-import os
+
+# Define the dictionary mapping pixel values to characters
+c = {i: chr(i) for i in range(256)}  # Maps 0-255 to ASCII characters
 
 def decrypt_image(image):
     decrypted_msg = ""
