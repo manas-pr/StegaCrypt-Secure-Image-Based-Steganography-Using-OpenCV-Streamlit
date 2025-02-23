@@ -6,12 +6,6 @@ from encrypt import encrypt_image  # Import encrypt function
 from decrypt import decrypt_image  # Import decrypt function
 
 
-import cv2
-import numpy as np
-import streamlit as st
-import os
-
-
 # Set background image using CSS
 page_bg_img = """
 <style>
@@ -37,17 +31,18 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("👨‍💻 About the Developer")
 st.sidebar.markdown("""
 **Manas Pratim Das**  
-🎓 *Electronics and Communication Engineering (MTech/MS)*  
-🤖 *Focus:*  
+🎓 *Electronics and Communication Engineering (MTech/MS)* 
+
+🤖 *Focus Areas:*  
        ✅ Artificial Intelligence & Machine Learning  
        ✅ Deep Learning & Secure Computing  
        ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-📧 [Email](mailto:manas.pr94@gmail.com/)
+📧 [Email](mailto:manas.pr94@gmail.com)  
 🐙 [GitHub](https://github.com/manas-pr)  
-""")
+""") 
 
 
 # Encryption Section
