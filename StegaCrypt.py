@@ -1,85 +1,86 @@
+import streamlit as st
 import cv2
 import numpy as np
-import streamlit as st
-from encrypt import encrypt_image  # Import updated encrypt function
-from decrypt import decrypt_image  # Import updated decrypt function
+import base64
+import hashlib
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import os
 
-# Set background image using CSS
-page_bg_img = """
-<style>
-.stApp {
-    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740339735~exp=1740343335~hmac=9cc6cf6a2b6f19cde9482a63d682c36fd20818686ef7789a5fe7124e0dcd4753&w=1380");
-    background-size: cover;
-    background-attachment: fixed;
-}
-</style>
-"""
-st.markdown(page_bg_img, unsafe_allow_html=True)
+def hash_password(password):
+    """Hashes the password using SHA-256."""
+    return hashlib.sha256(password.encode()).digest()
+
+def encrypt_message(message, password):
+    """Encrypts the message using AES encryption."""
+    key = hash_password(password)
+    cipher = AES.new(key, AES.MODE_CBC)
+    encrypted = cipher.encrypt(pad(message.encode(), AES.block_size))
+    return base64.b64encode(cipher.iv + encrypted).decode()
+
+def decrypt_message(encrypted_message, password):
+    """Decrypts the AES encrypted message."""
+    key = hash_password(password)
+    data = base64.b64decode(encrypted_message)
+    iv = data[:16]
+    encrypted = data[16:]
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    try:
+        return unpad(cipher.decrypt(encrypted), AES.block_size).decode()
+    except:
+        return "Authentication failed! Incorrect passcode."
+
+def encode_message(img, message, password):
+    """Encodes an encrypted message into an image using LSB."""
+    encrypted_message = encrypt_message(message, password) + "%%"
+    binary_message = ''.join(format(ord(c), '08b') for c in encrypted_message)
+    img_flat = img.flatten()
+    if len(binary_message) > len(img_flat):
+        return None, "Message is too long for this image!"
+    
+    for i in range(len(binary_message)):
+        img_flat[i] = (img_flat[i] & 254) | int(binary_message[i])  # ✅ Safe uint8 assignment
+
+    
+    img_encoded = img_flat.reshape(img.shape)
+    return img_encoded, "Message encrypted successfully!"
+
+def decode_message(img, password):
+    """Extracts and decrypts the hidden message from an image."""
+    img_flat = img.flatten()
+    binary_message = ''.join(str(img_flat[i] & 1) for i in range(len(img_flat)))
+    chars = [chr(int(binary_message[i:i+8], 2)) for i in range(0, len(binary_message), 8)]
+    extracted_message = ''.join(chars)
+    if "%%" not in extracted_message:
+        return "No hidden message found."
+    extracted_message = extracted_message.split("%%")[0]
+    return decrypt_message(extracted_message, password)
 
 # Streamlit UI
-st.title("🔒 StegaCrypt - Secure Image Steganography")
+st.title("🔒 Image-Based Steganography Tool")
+option = st.radio("Select an option", ("Encode Message", "Decode Message"))
 
-# Sidebar options
-st.sidebar.header("📌 Navigation")
-option = st.sidebar.radio("Choose an option:", ("Encrypt Message", "Decrypt Message"))
-
-# About section in the sidebar
-st.sidebar.markdown("---")
-st.sidebar.subheader("👨‍💻 About the Developer")
-st.sidebar.markdown("""
-**Manas Pratim Das**  
-🎓 *Electronics and Communication Engineering (MTech/MS)* 
-
-🤖 *Focus Areas:*  
-       ✅ Artificial Intelligence & Machine Learning  
-       ✅ Deep Learning & Secure Computing  
-       ✅ Neuromorphic Computing  
-
-📌 **Connect with Me:**  
-🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
-🐙 [GitHub](https://github.com/manas-pr)  
-📧 [Email](mailto:manas.pr94@gmail.com)   
-""")
-
-# Encryption Section
-if option == "Encrypt Message":
-    st.subheader("Encrypt a Message into an Image")
-    uploaded_file = st.file_uploader("📤 Upload an Image", type=["jpg", "png"])
-    message = st.text_area("📝 Enter Secret Message")
-    password = st.text_input("🔑 Set a Password", type="password")
-
-    if st.button("🔐 Encrypt & Save"):
-        if uploaded_file and message and password:
-            file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-            img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-
-            encrypted_img = encrypt_image(img, message, password)  # Updated function with password
-            cv2.imwrite("encryptedImage.png", encrypted_img)
-            st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
-            st.success("✅ Message Encrypted! Download the encrypted image below.")
-
-            with open("encryptedImage.png", "rb") as f:
-                st.download_button("📥 Download Encrypted Image", f, file_name="encryptedImage.png", mime="image/png")
-
-        else:
-            st.error("⚠ Please upload an image, enter a message, and set a password.")
-
-# Decryption Section
-elif option == "Decrypt Message":
-    st.subheader("Decrypt a Message from an Image")
-    uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])
-    password = st.text_input("🔑 Enter Password", type="password")
-
-    if st.button("🔓 Decrypt"):
-        if uploaded_file and password:
-            file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-            img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-
-            decrypted_msg = decrypt_image(img, password)  # Updated function with password
-            if decrypted_msg:
-                st.success(f"✅ Decrypted Message: {decrypted_msg}")
+if option == "Encode Message":
+    uploaded_file = st.file_uploader("Upload an Image (PNG only)", type=["png"])
+    if uploaded_file:
+        image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
+        message = st.text_area("Enter your secret message")
+        password = st.text_input("Enter passcode", type="password")
+        if st.button("Encode & Save Image"):
+            encoded_img, status = encode_message(image, message, password)
+            if encoded_img is not None:
+                cv2.imwrite("encoded_image.png", encoded_img)
+                st.success(status)
+                with open("encoded_image.png", "rb") as file:
+                    btn = st.download_button("Download Encrypted Image", file, "encoded_image.png")
             else:
-                st.error("❌ Incorrect Password! Unable to decrypt the message.")
+                st.error(status)
 
-        else:
-            st.error("⚠ Please upload the encrypted image and enter the correct password.")
+elif option == "Decode Message":
+    uploaded_file = st.file_uploader("Upload an Encrypted Image", type=["png"])
+    if uploaded_file:
+        image = cv2.imdecode(np.frombuffer(uploaded_file.read(), np.uint8), cv2.IMREAD_COLOR)
+        password = st.text_input("Enter passcode", type="password")
+        if st.button("Decode Message"):
+            decrypted_message = decode_message(image, password)
+            st.success(f"Decrypted Message: {decrypted_message}")
