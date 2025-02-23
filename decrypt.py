@@ -1,44 +1,20 @@
 import cv2
-import numpy as np
-import base64
-from Crypto.Cipher import AES
-from hashlib import sha256
 
-import base64
-from Crypto.Cipher import AES
-import hashlib
+def decrypt_message(image_path, length):
+    img = cv2.imread(image_path)
 
-def decrypt_message(encrypted_message, password):
-    try:
-        key = hashlib.sha256(password.encode()).digest()
-        encrypted_data = base64.b64decode(encrypted_message)  # Ensure correct decoding
+    if img is None:
+        raise FileNotFoundError("Image not found. Check the path.")
 
-        nonce = encrypted_data[:16]
-        tag = encrypted_data[16:32]
-        ciphertext = encrypted_data[32:]
+    c = {i: chr(i) for i in range(255)}
 
-        cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
-        decrypted_bytes = cipher.decrypt_and_verify(ciphertext, tag)
-        
-        return decrypted_bytes.decode()
-    
-    except (ValueError, KeyError, base64.binascii.Error):
-        return None  # Handle incorrect decryption or base64 errors
+    n, m, z = 0, 0, 0
+    message = ""
 
-
-# Function to extract message from image
-def decrypt_image(image, password):
-    encrypted_message = ""
-    m, n, z = 0, 0, 0
-
-    while True:
-        char = chr(image[n, m, z])  # Retrieve ASCII values
-        if char == "\0":  # Stop at termination
-            break
-        encrypted_message += char
-        n = (n + 1) % image.shape[0]
-        m = (m + 1) % image.shape[1]
+    for _ in range(length):
+        message += c[img[n, m, z]]
+        n = (n + 1) % img.shape[0]
+        m = (m + 1) % img.shape[1]
         z = (z + 1) % 3
 
-    return decrypt_message(encrypted_message, password)
-
+    return message
