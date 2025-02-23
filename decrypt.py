@@ -4,30 +4,41 @@ import base64
 from Crypto.Cipher import AES
 from hashlib import sha256
 
-# AES decryption function
+import base64
+from Crypto.Cipher import AES
+import hashlib
+
 def decrypt_message(encrypted_message, password):
-    key = sha256(password.encode()).digest()  # Generate AES key
-    cipher = AES.new(key, AES.MODE_ECB)  # Using ECB mode
-    decrypted_bytes = cipher.decrypt(base64.b64decode(encrypted_message))  # Decrypt
-    return decrypted_bytes.decode().rstrip(chr(decrypted_bytes[-1]))  # Remove padding
+    try:
+        key = hashlib.sha256(password.encode()).digest()
+        encrypted_data = base64.b64decode(encrypted_message)  # Ensure correct decoding
+
+        nonce = encrypted_data[:16]
+        tag = encrypted_data[16:32]
+        ciphertext = encrypted_data[32:]
+
+        cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
+        decrypted_bytes = cipher.decrypt_and_verify(ciphertext, tag)
+        
+        return decrypted_bytes.decode()
+    
+    except (ValueError, KeyError, base64.binascii.Error):
+        return None  # Handle incorrect decryption or base64 errors
+
 
 # Function to extract message from image
 def decrypt_image(image, password):
-    decrypted_msg = ""
+    encrypted_message = ""
+    m, n, z = 0, 0, 0
 
-    # Extract message length from first 8 pixels
-    message_length = 0
-    for i in range(8):
-        message_length |= image[i, 0, 0] << (i * 8)
-
-    m, n, z = 8, 0, 0  # Start reading after length storage
-    encrypted_msg = ""
-    
-    for _ in range(message_length):
-        encrypted_msg += chr(image[n, m, z])  # Read ASCII values
+    while True:
+        char = chr(image[n, m, z])  # Retrieve ASCII values
+        if char == "\0":  # Stop at termination
+            break
+        encrypted_message += char
         n = (n + 1) % image.shape[0]
         m = (m + 1) % image.shape[1]
         z = (z + 1) % 3
 
-    # Decrypt the message
-    return decrypt_message(encrypted_msg, password)
+    return decrypt_message(encrypted_message, password)
+
