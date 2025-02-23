@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
-
+from encrypt import encrypt_image  # Import encrypt function
+from decrypt import decrypt_image  # Import decrypt function
 
 # Set background image using CSS
 page_bg_img = """
