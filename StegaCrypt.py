@@ -78,9 +78,12 @@ elif option == "Decrypt Message":
         if uploaded_file and password:
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-
-            decrypted_msg = decrypt_image(img)  # Ensure decrypt_image() is defined
-            st.success(f"✅ Decrypted Message: {decrypted_msg}")
-
+    
+            decrypted_msg = decrypt_image(img, password)  # Pass password for validation
+    
+            if decrypted_msg == "❌ Incorrect Password!":
+                st.error("❌ Incorrect Password! Please try again.")
+            else:
+                st.success(f"✅ Decrypted Message: {decrypted_msg}")
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
