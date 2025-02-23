@@ -2,8 +2,7 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
-from encrypt import encrypt_image  # Import encrypt function
-from decrypt import decrypt_image  # Import decrypt function
+
 
 # Set background image using CSS
 page_bg_img = """
@@ -16,6 +15,7 @@ page_bg_img = """
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 # Streamlit UI
 st.title("🔒 StegaCrypt - Image Steganography App")
@@ -39,7 +39,8 @@ st.sidebar.markdown("""
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
 📧 [Email](mailto:manas.pr94@gmail.com)
 🐙 [GitHub](https://github.com/manas-pr)  
-""")
+""") 
+
 
 # Encryption Section
 if option == "Encrypt Message":
@@ -53,7 +54,7 @@ if option == "Encrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            encrypted_img = encrypt_image(img, message, password)  # Encrypt with password
+            encrypted_img = encrypt_image(img, message)  # Ensure encrypt_image() is defined
             cv2.imwrite("encryptedImage.png", encrypted_img)
             st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
             st.success("✅ Message Encrypted! Download the encrypted image below.")
@@ -75,11 +76,8 @@ elif option == "Decrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            decrypted_msg = decrypt_image(img, password)  # Ensure correct password
-            if decrypted_msg == "Wrong password":
-                st.error("🚫 Wrong password! Try again.")
-            else:
-                st.success(f"✅ Decrypted Message: {decrypted_msg}")
+            decrypted_msg = decrypt_image(img)  # Ensure decrypt_image() is defined
+            st.success(f"✅ Decrypted Message: {decrypted_msg}")
 
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
