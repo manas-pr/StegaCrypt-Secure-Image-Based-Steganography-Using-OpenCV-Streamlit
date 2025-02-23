@@ -37,7 +37,11 @@ def binary_to_text(binary_data):
 def encrypt_image(image, message, password):
     message = xor_encrypt_decrypt(message, password) + "#####"  # Add delimiter
     binary_message = text_to_binary(message)
-
+    
+    max_bytes = image.shape[0] * image.shape[1] * 3  # Total number of bytes in the image
+    if len(binary_message) > max_bytes:
+        raise ValueError("Error: Message too large to hide in this image! Use a larger image.")
+    
     data_index = 0
     binary_message_length = len(binary_message)
 
@@ -45,11 +49,12 @@ def encrypt_image(image, message, password):
         for pixel in row:
             for i in range(3):  # Iterate over RGB channels
                 if data_index < binary_message_length:
-                    pixel[i] = pixel[i] & ~1 | int(binary_message[data_index])
+                    pixel[i] = (pixel[i] & ~1) | int(binary_message[data_index])  # Modify LSB
                     data_index += 1
                 else:
                     break
     return image
+
 
 
 # Function to decrypt a message from an image
