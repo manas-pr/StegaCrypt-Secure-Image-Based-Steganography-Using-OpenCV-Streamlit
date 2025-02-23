@@ -2,15 +2,13 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
-from encrypt import encrypt_image  # Import encrypt function
-from decrypt import decrypt_image  # Import decrypt function
 
 
 # Set background image using CSS
 page_bg_img = """
 <style>
 .stApp {
-    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740339735~exp=1740343335~hmac=9cc6cf6a2b6f19cde9482a63d682c36fd20818686ef7789a5fe7124e0dcd4753&w=1380");
+    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740335237~exp=1740338837~hmac=a27f074d10a82ab100c989421ad79ec1d088b29b6f0d5a7f5f5412ff5bb4c967&w=996");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -31,17 +29,16 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("👨‍💻 About the Developer")
 st.sidebar.markdown("""
 **Manas Pratim Das**  
-🎓 *Electronics and Communication Engineering (MTech/MS)* 
-
+🎓 *Electronics and Communication Engineering (MTech/MS)*  
 🤖 *Focus Areas:*  
        ✅ Artificial Intelligence & Machine Learning  
        ✅ Deep Learning & Secure Computing  
        ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
-🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)
-🐙 [GitHub](https://github.com/manas-pr)
-📧 [Email](mailto:manas.pr94@gmail.com)   
+🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
+📧 [Email](mailto:manas.pr94@gmail.com)
+🐙 [GitHub](https://github.com/manas-pr)  
 """) 
 
 
