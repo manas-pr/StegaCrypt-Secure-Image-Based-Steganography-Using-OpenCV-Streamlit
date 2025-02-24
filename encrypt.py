@@ -1,21 +1,26 @@
 import cv2
 import numpy as np
-import streamlit as st
-import os
 
-# Define character-to-value mapping
-d = {chr(i): i for i in range(255)}
-c = {i: chr(i) for i in range(255)}
+def encrypt_image(image, message, password=None):
+    """Encrypts a message into an image using LSB steganography with optional password protection."""
+    
+    # Combine password with the message if provided
+    if password:
+        message = password + ":" + message  # Store password as a prefix
+    message += "#####"
 
-def encrypt_image(image, message):
-    img = image.copy()
-    message += "\0"  # Add termination character
-    m, n, z = 0, 0, 0
+    # Convert message into binary format
+    binary_message = ''.join(format(ord(char), '08b') for char in message)
+    data_index = 0
+    binary_message_length = len(binary_message)
 
-    for char in message:
-        img[n, m, z] = d[char]
-        n = (n + 1) % img.shape[0]
-        m = (m + 1) % img.shape[1]
-        z = (z + 1) % 3
-
-    return img
+    # Embed binary message into image
+    for row in image:
+        for pixel in row:
+            for i in range(3):  # Iterate over RGB channels
+                if data_index < binary_message_length:
+                    pixel[i] = pixel[i] & ~1 | int(binary_message[data_index])
+                    data_index += 1
+                else:
+                    return image  # Stop modifying once the message is embedded
+    return image
