@@ -2,38 +2,8 @@ import cv2
 import numpy as np
 import streamlit as st
 import os
-
-# Define character-to-value mapping
-d = {chr(i): i for i in range(255)}
-c = {i: chr(i) for i in range(255)}
-
-def encrypt_image(image, message):
-    img = image.copy()
-    message += "\0"  # Add termination character
-    m, n, z = 0, 0, 0
-
-    for char in message:
-        img[n, m, z] = d[char]
-        n = (n + 1) % img.shape[0]
-        m = (m + 1) % img.shape[1]
-        z = (z + 1) % 3
-
-    return img
-
-def decrypt_image(image):
-    decrypted_msg = ""
-    m, n, z = 0, 0, 0
-
-    while True:
-        char = c.get(image[n, m, z], "")
-        if char == "\0":  # Stop at termination character
-            break
-        decrypted_msg += char
-        n = (n + 1) % image.shape[0]
-        m = (m + 1) % image.shape[1]
-        z = (z + 1) % 3
-
-    return decrypted_msg
+from encrypt import encrypt_image  # Import encrypt function
+from decrypt import decrypt_image  # Import decrypt function
 
 # Streamlit UI
 st.title("🔒 Image Steganography App")
@@ -51,7 +21,7 @@ if option == "Encrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            encrypted_img = encrypt_image(img, message)
+            encrypted_img = encrypt_image(img, message, password)  # Now using function from encrypt.py
             cv2.imwrite("encryptedImage.png", encrypted_img)
             st.image("encryptedImage.png", caption="🔒 Encrypted Image", use_column_width=True)
             st.success("✅ Message Encrypted! Download the encrypted image below.")
@@ -72,9 +42,8 @@ elif option == "Decrypt Message":
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-            decrypted_msg = decrypt_image(img)  # No need for message length input
+            decrypted_msg = decrypt_image(img, password)  # Now using function from decrypt.py
             st.success(f"✅ Decrypted Message: {decrypted_msg}")
 
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
-
