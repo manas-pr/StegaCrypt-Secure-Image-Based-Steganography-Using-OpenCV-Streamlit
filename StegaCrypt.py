@@ -84,7 +84,7 @@ if option == "Encrypt Message":
 
 # Decryption Section
 elif option == "Decrypt Message":
-    st.markdown("<h2>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: white;'>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
     
     uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])  
     password = st.text_input("🔑 Enter Password (If Required)", type="password")
