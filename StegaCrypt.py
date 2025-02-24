@@ -5,6 +5,7 @@ import os
 from encrypt import encrypt_image  # Import encryption function
 from decrypt import decrypt_image  # Import decryption function
 
+
 # Set background image using CSS
 page_bg_img = """
 <style>
