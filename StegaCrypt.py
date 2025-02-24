@@ -7,6 +7,7 @@ from decrypt import decrypt_image  # Import decryption function
 
 
 # Set background image using CSS
+# Set background image and text styling using CSS
 page_bg_img = """
 <style>
 .stApp {
@@ -15,24 +16,17 @@ page_bg_img = """
     background-attachment: fixed;
 }
 
-/* Dark mode and light mode text styling */
-:root {
-    --text-color: #000000; /* Default for light mode */
-}
-
-[data-theme="dark"] {
-    --text-color: #ffffff; /* Adjust text color for dark mode */
-}
-
-h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {
-    color: var(--text-color) !important;
+/* Set title font color to white */
+h1 {
+    color: white !important;
 }
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Streamlit UI
-st.title("🔒 StegaCrypt - Secure Image Steganography App")
+st.markdown("<h1 style='text-align: center; color: white;'>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
+
 
 # Sidebar options
 st.sidebar.header("📌 Navigation")
