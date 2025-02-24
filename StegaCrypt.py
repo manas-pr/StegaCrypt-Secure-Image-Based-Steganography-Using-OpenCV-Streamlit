@@ -32,14 +32,15 @@ st.sidebar.markdown("""
 🎓 *Electronics and Communication Engineering (MTech/MS)*  
 
 🤖 **Focus Areas:**  
-       ✅ AI & Machine Learning  
+       ✅ Artificial Intelligence & Machine Learning  
        ✅ Deep Learning & Secure Computing  
        ✅ Neuromorphic Computing  
 
 📌 **Connect with Me:**  
-🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
+🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/) 
+🐙 [GitHub](https://github.com/manaspr94) 
 📧 [Email](mailto:manas.pr94@gmail.com)  
-🐙 [GitHub](https://github.com/manaspr94)  
+  
 """)  
 
 
