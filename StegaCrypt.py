@@ -28,7 +28,7 @@ div[data-testid="stTextArea"] label {
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center;'>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
 
 
 # Sidebar options
@@ -55,7 +55,7 @@ st.sidebar.markdown("""
 
 # Encryption Section
 if option == "Encrypt Message":
-    st.markdown("<h2>Encrypt a Message into an Image</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: white;'>Encrypt a Message into an Image</h2>", unsafe_allow_html=True)
     
     uploaded_file = st.file_uploader("📤 Upload an Image", type=["jpg", "png"])
     message = st.text_area("📝 Enter Secret Message")
