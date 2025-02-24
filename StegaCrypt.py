@@ -7,7 +7,7 @@ from encrypt import encrypt_image  # Import encryption function
 from decrypt import decrypt_image  # Import decryption function
 
 
-# Set background image and text styling using CSS
+# Set background image and selective text styling using CSS
 page_bg_img = """
 <style>
 .stApp {
@@ -16,21 +16,19 @@ page_bg_img = """
     background-attachment: fixed;
 }
 
-/* Set text color to white */
-h1, h2, h3, label, .stTextInput, .stTextArea, .stFileUploader {
+/* Set specific labels to white */
+div[data-testid="stFileUploader"] label,
+div[data-testid="stTextInput"] label,
+div[data-testid="stTextArea"] label {
     color: white !important;
-}
-
-/* Force white text inside Streamlit components */
-div[data-testid="stFileUploader"] label {
-    color: white !important;
+    font-weight: bold;
 }
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Streamlit UI
-st.markdown("<h1 style='text-align: center; color: white;'>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
 
 
 # Sidebar options
