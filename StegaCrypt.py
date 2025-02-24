@@ -16,22 +16,9 @@ page_bg_img = """
     background-attachment: fixed;
 }
 
-/* Set title, subheader, and labels to white */
-h1, h2, h3, label, p {
+/* Set title font color to white */
+h1 {
     color: white !important;
-}
-
-/* Customize file uploader text */
-div[data-testid="stFileUploader"] > label {
-    color: white !important;
-}
-
-/* Make input fields' font white & remove extra spacing */
-input, textarea {
-    color: white !important;
-    background-color: #333333 !important;  /* Darker input background */
-    border: 1px solid white !important;  /* White border for better visibility */
-    margin-top: -10px !important;  /* Reduces space between label and input box */
 }
 </style>
 """
@@ -70,14 +57,15 @@ st.sidebar.markdown("""
 if option == "Encrypt Message":
     st.markdown("<h2 style='color: white;'>Encrypt a Message into an Image</h2>", unsafe_allow_html=True)
     
-    st.markdown("<p style='color: white; margin-bottom: -5px;'>📤 Upload an Image</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: white;'>📤 Upload an Image</p>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("", type=["jpg", "png"])
     
-    st.markdown("<p style='color: white; margin-bottom: -5px;'>📝 Enter Secret Message</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: white;'>📝 Enter Secret Message</p>", unsafe_allow_html=True)
     message = st.text_area("", key="message")
     
-    st.markdown("<p style='color: white; margin-bottom: -5px;'>🔑 Set a Password (Optional)</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: white;'>🔑 Set a Password (Optional)</p>", unsafe_allow_html=True)
     password = st.text_input("", type="password", key="password")
+
 
     if st.button("🔐 Encrypt & Save"):
         if uploaded_file and message:
@@ -99,11 +87,12 @@ if option == "Encrypt Message":
 elif option == "Decrypt Message":
     st.markdown("<h2 style='color: white;'>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
     
-    st.markdown("<p style='color: white; margin-bottom: -5px;'>📥 Upload Encrypted Image</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: white;'>📥 Upload Encrypted Image</p>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("", type=["png", "jpg"], key="decrypt_file")
     
-    st.markdown("<p style='color: white; margin-bottom: -5px;'>🔑 Enter Password (If Required)</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: white;'>🔑 Enter Password (If Required)</p>", unsafe_allow_html=True)
     password = st.text_input("", type="password", key="decrypt_password")
+
 
     if st.button("🔓 Decrypt"):
         if uploaded_file:
