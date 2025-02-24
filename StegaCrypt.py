@@ -9,7 +9,7 @@ from decrypt import decrypt_image  # Import decryption function
 page_bg_img = """
 <style>
 .stApp {
-    background-image: url("https://thrivenextgen.com/wp-content/uploads/CyberMesh2_50-scaled.webp");
+    background-image: url("https://www.securitymagazine.com/ext/resources/cyber.jpg?1588206786");
     background-size: cover;
     background-attachment: fixed;
 }
