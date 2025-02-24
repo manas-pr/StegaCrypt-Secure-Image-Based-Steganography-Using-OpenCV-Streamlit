@@ -9,7 +9,7 @@ from decrypt import decrypt_image  # Import decryption function
 page_bg_img = """
 <style>
 .stApp {
-    background-image: url("https://eu-images.contentstack.com/v3/assets/blt10e444bce2d36aa8/bltb24cbfe01a6b2b2c/65243937ac22385ec5c003ce/Global-Cybersecurity.jpg?width=1280&auto=webp&quality=95&format=jpg&disable=upscale");
+    background-image: url("https://developer-blogs.nvidia.com/wp-content/uploads/2023/06/deep-learning-visual.png");
     background-size: cover;
     background-attachment: fixed;
 }
