@@ -61,15 +61,9 @@ st.sidebar.markdown("""
 if option == "Encrypt Message":
     st.markdown("<h2 style='color: white;'>Encrypt a Message into an Image</h2>", unsafe_allow_html=True)
     
-    st.markdown("<p style='color: white;'>📤 Upload an Image</p>", unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("", type=["jpg", "png"])
-    
-    st.markdown("<p style='color: white;'>📝 Enter Secret Message</p>", unsafe_allow_html=True)
-    message = st.text_area("", key="message")
-    
-    st.markdown("<p style='color: white;'>🔑 Set a Password (Optional)</p>", unsafe_allow_html=True)
-    password = st.text_input("", type="password", key="password")
-
+    uploaded_file = st.file_uploader("📤 Upload an Image", type=["jpg", "png"])
+    message = st.text_area("📝 Enter Secret Message")
+    password = st.text_input("🔑 Set a Password (Optional)", type="password")
 
     if st.button("🔐 Encrypt & Save"):
         if uploaded_file and message:
@@ -91,11 +85,8 @@ if option == "Encrypt Message":
 elif option == "Decrypt Message":
     st.markdown("<h2 style='color: white;'>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
     
-    st.markdown("<p style='color: white;'>📥 Upload Encrypted Image</p>", unsafe_allow_html=True)
-    uploaded_file = st.file_uploader("", type=["png", "jpg"], key="decrypt_file")
-    
-    st.markdown("<p style='color: white;'>🔑 Enter Password (If Required)</p>", unsafe_allow_html=True)
-    password = st.text_input("", type="password", key="decrypt_password")
+    uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])
+    password = st.text_input("🔑 Enter Password (If Required)", type="password")
 
 
     if st.button("🔓 Decrypt"):
