@@ -14,6 +14,19 @@ page_bg_img = """
     background-size: cover;
     background-attachment: fixed;
 }
+
+/* Dark mode and light mode text styling */
+:root {
+    --text-color: #000000; /* Default for light mode */
+}
+
+[data-theme="dark"] {
+    --text-color: #ffffff; /* Adjust text color for dark mode */
+}
+
+h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {
+    color: var(--text-color) !important;
+}
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
