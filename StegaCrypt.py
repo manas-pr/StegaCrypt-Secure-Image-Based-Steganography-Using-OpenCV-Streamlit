@@ -5,12 +5,48 @@ import os
 from encrypt import encrypt_image  # Import encryption function
 from decrypt import decrypt_image  # Import decryption function
 
+# Set background image using CSS
+page_bg_img = """
+<style>
+.stApp {
+    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740335237~exp=1740338837~hmac=a27f074d10a82ab100c989421ad79ec1d088b29b6f0d5a7f5f5412ff5bb4c967&w=996");
+    background-size: cover;
+    background-attachment: fixed;
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 # Streamlit UI
-st.title("🔒 StegaCrypt - Secure Image Steganography")
+st.title("🔒 StegaCrypt - Secure Image Steganography App")
 
 # Sidebar options
 st.sidebar.header("📌 Navigation")
 option = st.sidebar.radio("Choose an option:", ("Encrypt Message", "Decrypt Message"))
+
+# About section in the sidebar
+st.sidebar.markdown("---")
+st.sidebar.subheader("👨‍💻 About the Developer")
+st.sidebar.markdown("""
+**Manas Pratim Das**  
+🎓 *Electronics and Communication Engineering (MTech/MS)*  
+
+🤖 **Focus Areas:**  
+       ✅ AI & Machine Learning  
+       ✅ Deep Learning & Secure Computing  
+       ✅ Neuromorphic Computing  
+
+📌 **Connect with Me:**  
+🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)  
+📧 [Email](mailto:manas.pr94@gmail.com)  
+🐙 [GitHub](https://github.com/manaspr94)  
+""")  
+
+
+
+
+
+
 
 # Encryption Section
 if option == "Encrypt Message":
