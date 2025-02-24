@@ -59,7 +59,7 @@ st.sidebar.markdown("""
 
 # Encryption Section
 if option == "Encrypt Message":
-    st.subheader("Encrypt a Message into an Image")
+    st.markdown("<h2 style='color: white;'>Encrypt a Message into an Image</h2>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("📤 Upload an Image", type=["jpg", "png"])
     message = st.text_area("📝 Enter Secret Message")
     password = st.text_input("🔑 Set a Password (Optional)", type="password")
@@ -82,7 +82,7 @@ if option == "Encrypt Message":
 
 # Decryption Section
 elif option == "Decrypt Message":
-    st.subheader("Decrypt a Message from an Image")
+    st.markdown("<h2 style='color: white;'>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])
     password = st.text_input("🔑 Enter Password (If Required)", type="password")
 
