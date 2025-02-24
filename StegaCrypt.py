@@ -8,6 +8,7 @@ from decrypt import decrypt_image  # Import decryption function
 
 
 # Set background image and selective text styling using CSS
+# Set background image and selective text styling using CSS
 page_bg_img = """
 <style>
 .stApp {
@@ -30,13 +31,16 @@ div[data-testid="stTextArea"] label {
     font-weight: bold;
 }
 
-/* Keep Sidebar Navigation Font Default */
-.st-emotion-cache-1v0mbdj {
-    color: inherit !important;
+/* Align the Sidebar Navigation Text to the Left and Keep it Black */
+div[data-testid="stSidebarNav"] {
+    text-align: left !important;
+    color: black !important;
+    font-weight: bold;
 }
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 # Streamlit UI
 st.markdown("<h1>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
