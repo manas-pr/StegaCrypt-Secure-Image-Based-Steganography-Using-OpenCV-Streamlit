@@ -29,6 +29,11 @@ div[data-testid="stTextArea"] label {
     color: white !important;
     font-weight: bold;
 }
+
+/* Keep Sidebar Navigation Font Default */
+.st-emotion-cache-1v0mbdj {
+    color: inherit !important;
+}
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
@@ -37,7 +42,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 st.markdown("<h1>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
 
 
-# Sidebar options
+# Sidebar options (Navigation Font Default)
 st.sidebar.header("📌 Navigation")
 option = st.sidebar.radio("Choose an option:", ("Encrypt Message", "Decrypt Message"))
 
