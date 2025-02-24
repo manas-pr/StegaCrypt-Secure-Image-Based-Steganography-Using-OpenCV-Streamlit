@@ -16,6 +16,12 @@ page_bg_img = """
     background-attachment: fixed;
 }
 
+/* Make the main title and subheadings white */
+h1, h2 {
+    color: white !important;
+    text-align: center;
+}
+
 /* Set specific labels to white */
 div[data-testid="stFileUploader"] label,
 div[data-testid="stTextInput"] label,
@@ -49,7 +55,7 @@ st.sidebar.markdown("""
 
 📌 **Connect with Me:**  
 🔗 [LinkedIn](https://www.linkedin.com/in/manas-pratim-das-b95200197/)     
-🐙 [GitHub](https://github.com/manaspr94)     
+🐙 [GitHub](https://github.com/manas-pr)     
 📧 [Email](mailto:manas.pr94@gmail.com)     
 """)  
 
@@ -84,7 +90,7 @@ if option == "Encrypt Message":
 
 # Decryption Section
 elif option == "Decrypt Message":
-    st.markdown("<h2>Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>🔓 Decrypt a Message from an Image</h2>", unsafe_allow_html=True)
     
     uploaded_file = st.file_uploader("📥 Upload Encrypted Image", type=["png", "jpg"])  
     password = st.text_input("🔑 Enter Password (If Required)", type="password")
