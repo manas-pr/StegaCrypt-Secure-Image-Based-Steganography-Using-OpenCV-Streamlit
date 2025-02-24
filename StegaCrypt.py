@@ -77,3 +77,4 @@ elif option == "Decrypt Message":
 
         else:
             st.error("⚠ Please upload the encrypted image and enter the correct password.")
+
