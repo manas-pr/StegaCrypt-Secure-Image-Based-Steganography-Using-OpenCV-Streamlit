@@ -9,7 +9,7 @@ from decrypt import decrypt_image  # Import decryption function
 page_bg_img = """
 <style>
 .stApp {
-    background-image: url("https://img.freepik.com/free-photo/abstract-techno-background-with-connecting-lines_1048-5570.jpg?t=st=1740335237~exp=1740338837~hmac=a27f074d10a82ab100c989421ad79ec1d088b29b6f0d5a7f5f5412ff5bb4c967&w=996");
+    background-image: url("https://thrivenextgen.com/wp-content/uploads/CyberMesh2_50-scaled.webp");
     background-size: cover;
     background-attachment: fixed;
 }
