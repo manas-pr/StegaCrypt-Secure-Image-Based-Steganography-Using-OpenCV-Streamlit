@@ -1,20 +1,19 @@
 import cv2
+import numpy as np
+import streamlit as st
+import os
 
-def decrypt_message(image_path, length):
-    img = cv2.imread(image_path)
+def decrypt_image(image):
+    decrypted_msg = ""
+    m, n, z = 0, 0, 0
 
-    if img is None:
-        raise FileNotFoundError("Image not found. Check the path.")
-
-    c = {i: chr(i) for i in range(255)}
-
-    n, m, z = 0, 0, 0
-    message = ""
-
-    for _ in range(length):
-        message += c[img[n, m, z]]
-        n = (n + 1) % img.shape[0]
-        m = (m + 1) % img.shape[1]
+    while True:
+        char = c.get(image[n, m, z], "")
+        if char == "\0":  # Stop at termination character
+            break
+        decrypted_msg += char
+        n = (n + 1) % image.shape[0]
+        m = (m + 1) % image.shape[1]
         z = (z + 1) % 3
 
-    return message
+    return decrypted_msg
