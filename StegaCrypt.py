@@ -19,15 +19,21 @@ page_bg_img = """
 /* Make the main title and subheadings white */
 h1, h2 {
     color: white !important;
-    text-align: center;
+    text-align: left;
 }
 
-/* Set specific labels to white */
+/* Set specific labels and sidebar header to white */
 div[data-testid="stFileUploader"] label,
 div[data-testid="stTextInput"] label,
 div[data-testid="stTextArea"] label {
     color: white !important;
     font-weight: bold;
+}
+
+/* Make the sidebar header white and align it to the left */
+section[data-testid="stSidebar"] h1 {
+    color: white !important;
+    text-align: left !important;
 }
 </style>
 """
@@ -35,7 +41,6 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Streamlit UI
 st.markdown("<h1>🔒 StegaCrypt - Secure Image Steganography App</h1>", unsafe_allow_html=True)
-
 
 # Sidebar options
 st.sidebar.header("📌 Navigation")
@@ -45,7 +50,7 @@ option = st.sidebar.radio("Choose an option:", ("Encrypt Message", "Decrypt Mess
 st.sidebar.markdown("---")
 st.sidebar.subheader("👨‍💻 About the Developer")
 st.sidebar.markdown("""
-**Manas Pratim Das**  
+**Manas Pratim Das** 
 🎓 *Electronics and Communication Engineering (MTech/MS)*  
 
 🤖 **Focus Areas:**  
