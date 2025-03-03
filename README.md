@@ -1,9 +1,11 @@
 # **StegaCrypt: Secure Image-Based Steganography Using OpenCV & Streamlit** 🚀🔐  
 
+---
 ## **Overview**  
 **StegaCrypt** is an interactive image steganography application that allows users to securely hide and retrieve messages within images. Built using OpenCV, NumPy, and Streamlit, this tool ensures seamless encryption and decryption while maintaining the image’s visual integrity. 
 The Image Steganography App uses a Least Significant Bit (LSB) Modification Technique for encoding and decoding hidden messages within images. Below is a breakdown of how the encryption and decryption process works:
 
+---
 ### **🔐 Encryption Steps:**  
 - Convert each character of the message to its **ASCII value**.  
 - Embed the ASCII values into the **RGB pixel values** of the image.  
@@ -11,6 +13,7 @@ The Image Steganography App uses a Least Significant Bit (LSB) Modification Tech
 - Append a **null character (`\0`)** to mark the end of the message.  
 - Save the modified image as the **encrypted image**.  
 
+---
 ### **🔓 Decryption Steps:**  
 - Read pixel values in the same order as encryption.  
 - Convert the extracted values back to **characters** using ASCII mapping.  
@@ -18,6 +21,7 @@ The Image Steganography App uses a Least Significant Bit (LSB) Modification Tech
 - Display the **decoded secret message**. 🚀
 
 
+---
 ## **✨ Features**  
 
 🔒 **Secure Message Encryption** – Hide secret messages inside images without altering their appearance.  
@@ -36,6 +40,7 @@ The Image Steganography App uses a Least Significant Bit (LSB) Modification Tech
 
 🔑 **Password Protection (Future Enhancement)** – Adds an extra security layer for hidden messages.  
 
+---
 ## **🛠 Requirements**  
 Before running **StegaCrypt**, ensure you have the following installed:  
 - Python 3.x  
